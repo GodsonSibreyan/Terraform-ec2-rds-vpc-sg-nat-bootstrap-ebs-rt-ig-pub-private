@@ -1,0 +1,18 @@
+#!/bin/bash
+yum update -y
+yum install httpd -y
+echo "
+       <html>
+       <head> sunny </head>
+       <body> Terraform cloud automation </body>
+       </html>
+     " >> /var/www/html/index.html
+
+sed -i "s/Listen 80/Listen 0.0.0.0:80/g" /etc/httpd/conf/httpd.conf
+systemctl restart httpd
+yum install wget -y
+wget wget https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm
+md5sum mysql57-community-release-el7-9.noarch.rpm
+sudo rpm -ivh mysql57-community-release-el7-9.noarch.rpm
+sudo yum install mysql-server -y
+sudo systemctl start mysqld
